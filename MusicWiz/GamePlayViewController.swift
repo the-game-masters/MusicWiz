@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class GamePlayViewController: UIViewController {
     
@@ -20,12 +21,22 @@ class GamePlayViewController: UIViewController {
     
     // MARK: - Public Variables
     
+    let mediaPlayer = MPMusicPlayerApplicationController.applicationQueuePlayer
+    
     weak var tableViewController: UITableViewController?
     
     // MARK: - Override Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Add a playback queue containing all songs on the device
+        mediaPlayer.setQueue(with: .songs())
+        // Start playing from the beginning of the queue
+        mediaPlayer.play()
+        
+        // Print the now-playing item, need to write recursive func that calls until loaded
+        print("Title: \(mediaPlayer.nowPlayingItem?.title)")
     }
     
     // MARK: - Actions

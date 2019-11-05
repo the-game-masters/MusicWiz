@@ -12,7 +12,7 @@ import MediaPlayer
 class GamePlayViewController: UIViewController {
     
     // MARK: - IBOutlet References
-    
+//    ? is guard rails for accessing a value that may or may not be
     @IBOutlet weak var navigationBar: UINavigationItem?
     
     @IBOutlet weak var timerView: UIView?
@@ -36,7 +36,20 @@ class GamePlayViewController: UIViewController {
         mediaPlayer.play()
         
         // Print the now-playing item, need to write recursive func that calls until loaded
-        print("Title: \(mediaPlayer.nowPlayingItem?.title)")
+        print("Title: \(mediaPlayer.nowPlayingItem?.title), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
+        print("Index: \(mediaPlayer.indexOfNowPlayingItem)")
+        
+        //get songs
+        var query = MPMediaQuery.songs()
+        print("query is \(query)")
+        //
+        var collection = MPMediaItemCollection(items: query.items!)
+        let player = MPMusicPlayerController.applicationMusicPlayer
+
+        player.setQueue(with:collection)
+
+        print("mediaplayer info: \(collection.items[1].title)")
+
     }
     
     // MARK: - Actions

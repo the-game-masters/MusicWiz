@@ -63,6 +63,7 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func hintButtonPressed(_ sender: Any) {
+        
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {

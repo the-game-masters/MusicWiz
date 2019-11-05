@@ -29,27 +29,80 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+           let timeLimit = 5.0
+
+             // Add a playback queue containing all songs on the device
+             mediaPlayer.setQueue(with: .songs())
+
+             // Start playing from the beginning of the queue
+             mediaPlayer.play()
+
         
-        // Add a playback queue containing all songs on the device
-        mediaPlayer.setQueue(with: .songs())
-        // Start playing from the beginning of the queue
-        mediaPlayer.play()
+         Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
+                 //   self.mediaPlayer.stop()
+            
+            //            ************TRYING TO REGEX************
+            do {
+                let input: String! = self.mediaPlayer.nowPlayingItem?.title
+                
+                        let regex = try NSRegularExpression(pattern: "(.*)", options: NSRegularExpression.Options.caseInsensitive)
+                        let matches = regex.matches(in: input!, options: [], range: NSRange(location: 0, length: input.utf16.count))
+            
+                        if let match = matches.first {
+                            let range = match.range(at:1)
+                            if let titleRange = Range(range, in: input) {
+                                let name = input[titleRange]
+                                
+
+                                let alert = UIAlertController(title: "Song", message: " \(name) by \(name)", preferredStyle: .alert)
+
+                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+                                self.present(alert, animated: true)
+                            }
+                        }
+                    } catch {
+                        // CATCH NEEDED!
+                    }
+                       //           ************STOP TRYING************
+            
+//           Ai Commented out below and moved all into above 😬
+            
+//             let alert = UIAlertController(title: "Song", message: " \(String(describing: self.mediaPlayer.nowPlayingItem!.title))", preferredStyle: .alert)
+            
+//              let alert = UIAlertController(title: "Song", message: " \(name))", preferredStyle: .alert)
+//
+//             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//
+//             self.present(alert, animated: true)
+        
+
+             print("Title: //\(String(describing: self.mediaPlayer.nowPlayingItem?.title))")
+            
+            //get songs
+                 var query = MPMediaQuery.songs()
+                 print("query is \(query)")
+                 //
+                 var collection = MPMediaItemCollection(items: query.items!)
+                 let player = MPMusicPlayerController.applicationMusicPlayer
+
+                 player.setQueue(with:collection)
+                 let playcount:Int! = collection.items.count
+                 let rando = Int.random(in:1..<playcount)
+                 print("how many? \(collection.items.count) and whats rando? \(rando)")
+
+                 print("random song🪕: \(collection.items[rando].title) by \(collection.items[rando].artist)")
+
+            
+
+             self.mediaPlayer.skipToNextItem()
+
+         }
         
         // Print the now-playing item, need to write recursive func that calls until loaded
-        print("Title: \(mediaPlayer.nowPlayingItem?.title), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
-        print("Index: \(mediaPlayer.indexOfNowPlayingItem)")
+        print("🤢Title: \(mediaPlayer.nowPlayingItem?.title), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
         
-        //get songs
-        var query = MPMediaQuery.songs()
-        print("query is \(query)")
-        //
-        var collection = MPMediaItemCollection(items: query.items!)
-        let player = MPMusicPlayerController.applicationMusicPlayer
-
-        player.setQueue(with:collection)
-
-        print("mediaplayer info: \(collection.items[1].title)")
-
+     
     }
     
     // MARK: - Actions

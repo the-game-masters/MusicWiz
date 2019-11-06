@@ -23,6 +23,7 @@ class GamePlayViewController: UIViewController {
     
     let mediaPlayer = MPMusicPlayerApplicationController.applicationQueuePlayer
     
+    
     weak var tableViewController: UITableViewController?
     
     // MARK: - Override Methods
@@ -30,21 +31,32 @@ class GamePlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let timeLimit = 10.0
+        let timeLimit = 15.0
+        
         
         // Add a playback queue containing all songs on the device
         mediaPlayer.setQueue(with: .songs())
+//        print(mediaPlayer.songs())
         
         // Start playing from the beginning of the queue
+        mediaPlayer.prepareToPlay()
+        mediaPlayer.shuffleMode = .songs
         mediaPlayer.play()
+        
+
+      
         
     Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
             //   self.mediaPlayer.stop()
-        let alert = UIAlertController(title: "Song", message: " \(String(describing: self.mediaPlayer.nowPlayingItem?.title))", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+        self.albumImageView!.image = self.mediaPlayer.nowPlayingItem?.artwork?.image(at: self.albumImageView!.bounds.size)
         
-        self.present(alert, animated: true)
+//        let alert = UIAlertController(title: "Song", message: " \(String(describing: self.mediaPlayer.nowPlayingItem?.title))", preferredStyle: .alert)
+//
+//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//
+//        self.present(alert, animated: true)
         
         print("Title: //\(String(describing: self.mediaPlayer.nowPlayingItem?.title))")
         

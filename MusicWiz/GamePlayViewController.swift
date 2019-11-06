@@ -25,6 +25,19 @@ class GamePlayViewController: UIViewController {
     
     weak var tableViewController: UITableViewController?
     
+//   *** Buttons for Play ***
+    
+    @IBOutlet weak var buttonOne: UIButton!
+    
+    @IBOutlet weak var buttonTwo: UIButton!
+    
+    @IBOutlet weak var buttonThree: UIButton!
+    
+    @IBOutlet weak var buttonFour: UIButton!
+    
+//   *** end buttons ***
+    
+    
     // MARK: - Override Methods
     
     override func viewDidLoad() {
@@ -92,20 +105,37 @@ class GamePlayViewController: UIViewController {
                  print("how many? \(collection.items.count) and whats rando? \(rando)")
 
                  print("random song🪕: \(collection.items[rando].title) by \(collection.items[rando].artist)")
-
             
-
-             self.mediaPlayer.skipToNextItem()
+             //            ***Generate the buttons***
+            self.buttonOne.setTitle(collection.items[rando].title, for:.normal)
+            self.mediaPlayer.skipToNextItem()
 
          }
         
         // Print the now-playing item, need to write recursive func that calls until loaded
-        print("🤢Title: \(mediaPlayer.nowPlayingItem?.title), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
+//        print("🤢Title: \(mediaPlayer.nowPlayingItem?.artwork), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
         
      
     }
     
     // MARK: - Actions
+    
+    //            ***Generate the buttons***
+                
+    @IBAction func btnOne(_ sender: Any) {
+        var guess: String! = buttonOne.titleLabel?.text
+        print("button one is",guess)
+        var song = mediaPlayer.nowPlayingItem?.title
+        print("song is", song)
+        if guess == song {
+            print("BINGO🌟")
+        } else {
+            print("nopes😵")
+        }
+    }
+    
+                
+    //            ***end button Fns***
     
     @IBAction func unblurButtonPressed(_ sender: Any) {
     }

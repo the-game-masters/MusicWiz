@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/adrianagraybill/codefellows/401/Test/MusicWiz.xcodeproj">
+      location = "group:../../swft-single-sb/swft-single-sb/ViewController.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

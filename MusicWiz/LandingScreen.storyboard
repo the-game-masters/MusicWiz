@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lPC-NU-Dw4">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--LandingScreen-->
+        <scene sceneID="gbu-CC-10i">
+            <objects>
+                <viewController title="LandingScreen" id="lPC-NU-Dw4" customClass="LandingScreen" customModule="MusicWiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XEW-1t-AOD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElU-VC-TB2">
+                                <rect key="frame" x="147" y="388" width="120" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Play" backgroundImage="play.rectangle" catalog="system"/>
+                                <connections>
+                                    <action selector="GoToMain:" destination="lPC-NU-Dw4" eventType="touchUpInside" id="1Ke-u4-lIj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="uTl-Tc-CCW"/>
+                    </view>
+                    <connections>
+                        <segue destination="EcO-39-5R5" kind="presentation" identifier="GamePage" id="HKO-3I-s70"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9GM-Ba-uk8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="37.5"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="tOP-Et-CqX">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="Main" id="EcO-39-5R5" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JbI-0C-l3t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="858" y="38"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="play.rectangle" catalog="system" width="64" height="46"/>
+    </resources>
+</document>

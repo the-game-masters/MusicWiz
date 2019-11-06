@@ -42,7 +42,7 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-           let timeLimit = 15.0
+           let timeLimit = 8.0
 
              // Add a playback queue containing all songs on the device
              mediaPlayer.setQueue(with: .songs())
@@ -51,8 +51,62 @@ class GamePlayViewController: UIViewController {
              mediaPlayer.play()
 
         
+
+         //get songs
+                   
+                         var query = MPMediaQuery.songs()
+                         print("query is \(query)")
+                         //
+                         var collection = MPMediaItemCollection(items: query.items!)
+                         let player = MPMusicPlayerController.applicationMusicPlayer
+
+                         player.setQueue(with:collection)
+                         let playcount:Int! = collection.items.count
+
+                    
+                     //            ***Generate the buttons***
+        func setAnswer(){self.buttonOne.setTitle(self.mediaPlayer.nowPlayingItem?.title, for:.normal)}
+                    
+                    func setTitles(){
+                   
+        //                let guess: String! = self.buttonOne.titleLabel?.text
+        //                print("button one is🤢",guess)
+        //                var song = self.mediaPlayer.nowPlayingItem?.title
+        //                print("song is 🥎", song)
+        //
+                         var arr = (1...5).map( {_
+                            in Int.random(in: 1...playcount)
+                            
+                         } )
+//                        self.buttonOne.setTitle(self.mediaPlayer.nowPlayingItem?.title, for:.normal)
+                       
+                        setAnswer()
+                        self.buttonTwo.setTitle(collection.items[arr[2]].title, for:.normal)
+                                   
+                        self.buttonThree.setTitle(collection.items[arr[3]].title, for:.normal)
+                                   
+                        self.buttonFour.setTitle(collection.items[arr[4]].title, for:.normal)
+                        
+                    }
+         setAnswer()
+        setTitles()
+       
+              
+                // Add a playback queue containing all songs on the device
+                mediaPlayer.setQueue(with: .songs())
+        //        print(mediaPlayer.songs())
+                
+                // Start playing from the beginning of the queue
+                mediaPlayer.prepareToPlay()
+                mediaPlayer.shuffleMode = .songs
+                mediaPlayer.play()
+                
+
+        
          Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
                  //   self.mediaPlayer.stop()
+            
+             self.albumImageView!.image = self.mediaPlayer.nowPlayingItem?.artwork?.image(at: self.albumImageView!.bounds.size)
             
             //            ************TRYING TO REGEX************
             do {
@@ -72,6 +126,7 @@ class GamePlayViewController: UIViewController {
                                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
 
                                 self.present(alert, animated: true)
+                                
                             }
                         }
                     } catch {
@@ -92,35 +147,16 @@ class GamePlayViewController: UIViewController {
 
              print("Title: //\(String(describing: self.mediaPlayer.nowPlayingItem?.title))")
             
-            //get songs
-                 var query = MPMediaQuery.songs()
-                 print("query is \(query)")
-                 //
-                 var collection = MPMediaItemCollection(items: query.items!)
-                 let player = MPMusicPlayerController.applicationMusicPlayer
+           
 
-                 player.setQueue(with:collection)
-                 let playcount:Int! = collection.items.count
-                 let rando = Int.random(in:1..<playcount)
-                 print("how many? \(collection.items.count) and whats rando? \(rando)")
-
-                 print("random song🪕: \(collection.items[rando].title) by \(collection.items[rando].artist)")
-            
-             //            ***Generate the buttons***
-            var arr = (1...5).map( {_ in Int.random(in: 1...playcount)} )
-            self.buttonOne.setTitle(self.mediaPlayer.nowPlayingItem?.title, for:.normal)
-            
-            self.buttonTwo.setTitle(collection.items[arr[2]].title, for:.normal)
-            
-            self.buttonThree.setTitle(collection.items[arr[3]].title, for:.normal)
-            
-            self.buttonFour.setTitle(collection.items[arr[4]].title, for:.normal)
             self.mediaPlayer.skipToNextItem()
-
+setTitles()
          }
-        
+//        var song = self.mediaPlayer.nowPlayingItem?.title
+//         buttonOne.setTitle(song, for:.normal)
         // Print the now-playing item, need to write recursive func that calls until loaded
 //        print("🤢Title: \(mediaPlayer.nowPlayingItem?.artwork), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
+
         
      
     }
@@ -128,20 +164,24 @@ class GamePlayViewController: UIViewController {
     // MARK: - Actions
     
     //            ***Generate the buttons***
-                
+    
+
+     func setAnswer(){self.buttonOne.setTitle(self.mediaPlayer.nowPlayingItem?.title, for:.normal)}
+
     @IBAction func btnOne(_ sender: Any) {
         var guess: String! = buttonOne.titleLabel?.text
         print("button one is",guess)
         var song = mediaPlayer.nowPlayingItem?.title
         print("song is", song)
-        //song is 1  lagging here 😢
+//        //song is 1 lagging here 😢
         if guess == song {
             buttonOne.backgroundColor = UIColor.green
-            print("BINGO🌟")
+            print("BINGO🌟🌟")
         } else {
             buttonOne.backgroundColor = UIColor.red
-            print("nopes😵")
+            print("nopes😵😵")
         }
+//        buttonOne.setTitle(song, for:.normal)
     }
     
     @IBAction func btnTwo(_ sender: Any) {

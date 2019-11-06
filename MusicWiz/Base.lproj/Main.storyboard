@@ -72,6 +72,9 @@
                                         <rect key="frame" x="0.0" y="40" width="414" height="30"/>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="btnTwo:" destination="yfr-Or-FCA" eventType="touchUpInside" id="rur-Jd-077"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7i-kV-v1d">
                                         <rect key="frame" x="0.0" y="80" width="414" height="30"/>

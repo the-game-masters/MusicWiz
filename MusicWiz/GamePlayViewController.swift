@@ -42,7 +42,7 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-           let timeLimit = 5.0
+           let timeLimit = 15.0
 
              // Add a playback queue containing all songs on the device
              mediaPlayer.setQueue(with: .songs())
@@ -107,7 +107,14 @@ class GamePlayViewController: UIViewController {
                  print("random song🪕: \(collection.items[rando].title) by \(collection.items[rando].artist)")
             
              //            ***Generate the buttons***
-            self.buttonOne.setTitle(collection.items[rando].title, for:.normal)
+            var arr = (1...5).map( {_ in Int.random(in: 1...playcount)} )
+            self.buttonOne.setTitle(self.mediaPlayer.nowPlayingItem?.title, for:.normal)
+            
+            self.buttonTwo.setTitle(collection.items[arr[2]].title, for:.normal)
+            
+            self.buttonThree.setTitle(collection.items[arr[3]].title, for:.normal)
+            
+            self.buttonFour.setTitle(collection.items[arr[4]].title, for:.normal)
             self.mediaPlayer.skipToNextItem()
 
          }
@@ -127,6 +134,7 @@ class GamePlayViewController: UIViewController {
         print("button one is",guess)
         var song = mediaPlayer.nowPlayingItem?.title
         print("song is", song)
+        //song is 1  lagging here 😢
         if guess == song {
             buttonOne.backgroundColor = UIColor.green
             print("BINGO🌟")
@@ -136,7 +144,10 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-                
+    @IBAction func btnTwo(_ sender: Any) {
+        
+    }
+    
     //            ***end button Fns***
     
     @IBAction func unblurButtonPressed(_ sender: Any) {

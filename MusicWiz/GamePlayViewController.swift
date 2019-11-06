@@ -128,8 +128,10 @@ class GamePlayViewController: UIViewController {
         var song = mediaPlayer.nowPlayingItem?.title
         print("song is", song)
         if guess == song {
+            buttonOne.backgroundColor = UIColor.green
             print("BINGO🌟")
         } else {
+            buttonOne.backgroundColor = UIColor.red
             print("nopes😵")
         }
     }

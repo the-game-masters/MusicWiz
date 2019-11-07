@@ -105,6 +105,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="albumImageView" destination="rto-3k-bbj" id="Mzm-7V-mL7"/>
+                        <outlet property="hintBtn" destination="Ros-Nt-2Xy" id="xZV-ml-1xm"/>
                         <outlet property="navigationBar" destination="R7x-X6-1MZ" id="3d9-VK-QXe"/>
                         <outlet property="progressBar" destination="Chx-4h-jDd" id="eBz-EY-kOE"/>
                         <outlet property="timerView" destination="0vl-uJ-WZs" id="6uT-RO-qZT"/>

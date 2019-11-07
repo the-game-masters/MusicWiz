@@ -20,12 +20,12 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var albumImageView: UIImageView?
     @IBOutlet weak var progressBar: UIProgressView!
     
+    @IBOutlet weak var hintBtn: UIButton!
     
     
     // MARK: - Public Variables
     
     let mediaPlayer = MPMusicPlayerApplicationController.applicationQueuePlayer
-    
     
     weak var tableViewController: SongTableViewController?
     
@@ -59,13 +59,7 @@ class GamePlayViewController: UIViewController {
     
 //   *** Buttons for Play ***
     
-    @IBOutlet weak var buttonOne: UIButton!
-    
-    @IBOutlet weak var buttonTwo: UIButton!
-    
-    @IBOutlet weak var buttonThree: UIButton!
-    
-    @IBOutlet weak var buttonFour: UIButton!
+
     
 //   *** end buttons ***
     
@@ -120,13 +114,13 @@ class GamePlayViewController: UIViewController {
     
     
     @objc func updateInterface() {
+        hintBtn.setTitle("hint", for: .normal)
         guard let albumImageView = albumImageView else { return }
         
         if let artwork = mediaPlayer.nowPlayingItem?.artwork {
             albumImageView.image = artwork.image(at: albumImageView.bounds.size)
         } else {
-            // this is the case where there is no album artwork
-            // albumImageView.image = mediaPlayer.nowPlayingItem?.artwork?.image(at: albumImageView.bounds.size)
+            albumImageView.image = UIImage(named: "defaultArtwork")
         }
         
         guard let tableViewController = tableViewController else { return }
@@ -141,6 +135,8 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func hintButtonPressed(_ sender: Any) {
+        hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)
+        print(hintBtn.titleLabel)
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {

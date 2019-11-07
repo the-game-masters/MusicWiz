@@ -24,7 +24,7 @@ class GamePlayViewController: UIViewController {
     let mediaPlayer = MPMusicPlayerApplicationController.applicationQueuePlayer
     
     
-    weak var tableViewController: UITableViewController?
+    weak var tableViewController: SongTableViewController?
     
 //   *** Buttons for Play ***
     
@@ -43,130 +43,62 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-           let timeLimit = 5.0
-
-             // Add a playback queue containing all songs on the device
-             mediaPlayer.setQueue(with: .songs())
-
-             // Start playing from the beginning of the queue
-             mediaPlayer.play()
-
         
-         Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
-                 //   self.mediaPlayer.stop()
-            
-            //            ************TRYING TO REGEX************
-            do {
-                let input: String! = self.mediaPlayer.nowPlayingItem?.title
-                
-                        let regex = try NSRegularExpression(pattern: "(.*)", options: NSRegularExpression.Options.caseInsensitive)
-                        let matches = regex.matches(in: input!, options: [], range: NSRange(location: 0, length: input.utf16.count))
-            
-                        if let match = matches.first {
-                            let range = match.range(at:1)
-                            if let titleRange = Range(range, in: input) {
-                                let name = input[titleRange]
-                                
+        // Register for the ready to play notification
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateInterface),
+                                               name: .MPMusicPlayerControllerNowPlayingItemDidChange,
+                                               object: nil)
 
-                                let alert = UIAlertController(title: "Song", message: " \(name) by \(name)", preferredStyle: .alert)
-
-                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-
-                                self.present(alert, animated: true)
-                            }
-                        }
-                    } catch {
-                        // CATCH NEEDED!
-                    }
-                       //           ************STOP TRYING************
-            
-//           Ai Commented out below and moved all into above 😬
-            
-//             let alert = UIAlertController(title: "Song", message: " \(String(describing: self.mediaPlayer.nowPlayingItem!.title))", preferredStyle: .alert)
-            
-//              let alert = UIAlertController(title: "Song", message: " \(name))", preferredStyle: .alert)
-//
-//             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//
-//             self.present(alert, animated: true)
-        let timeLimit = 15.0
-        
-        
         // Add a playback queue containing all songs on the device
         mediaPlayer.setQueue(with: .songs())
-//        print(mediaPlayer.songs())
-        
+
         // Start playing from the beginning of the queue
-        mediaPlayer.prepareToPlay()
-        mediaPlayer.shuffleMode = .songs
+        mediaPlayer.prepareToPlay { [weak self] (error) in
+            if error == nil {
+                self?.startSongShuffle()
+            }
+        }
+        
+    }
+    
+    func startSongShuffle() {
         mediaPlayer.play()
-
-             print("Title: //\(String(describing: self.mediaPlayer.nowPlayingItem?.title))")
-            
-            //get songs
-                 var query = MPMediaQuery.songs()
-                 print("query is \(query)")
-                 //
-                 var collection = MPMediaItemCollection(items: query.items!)
-                 let player = MPMusicPlayerController.applicationMusicPlayer
-
-                 player.setQueue(with:collection)
-                 let playcount:Int! = collection.items.count
-                 let rando = Int.random(in:1..<playcount)
-                 print("how many? \(collection.items.count) and whats rando? \(rando)")
-
-                 print("random song🪕: \(collection.items[rando].title) by \(collection.items[rando].artist)")
-            
-             //            ***Generate the buttons***
-            self.buttonOne.setTitle(collection.items[rando].title, for:.normal)
-            self.mediaPlayer.skipToNextItem()
-
-         }
         
-
-      
-        
-    Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
-            //   self.mediaPlayer.stop()
-        
-
-        self.albumImageView!.image = self.mediaPlayer.nowPlayingItem?.artwork?.image(at: self.albumImageView!.bounds.size)
-        
-//        let alert = UIAlertController(title: "Song", message: " \(String(describing: self.mediaPlayer.nowPlayingItem?.title))", preferredStyle: .alert)
-//
-//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//
-//        self.present(alert, animated: true)
-        
-        print("Title: //\(String(describing: self.mediaPlayer.nowPlayingItem?.title))")
-        
-        self.mediaPlayer.skipToNextItem()
-        
-    }
-        
-        
-        
-        // Print the now-playing item, need to write recursive func that calls until loaded
-
-//        print("🤢Title: \(mediaPlayer.nowPlayingItem?.artwork), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
-        
-    }
-    
-    // MARK: - Actions
-    
-    //            ***Generate the buttons***
-                
-    @IBAction func btnOne(_ sender: Any) {
-        var guess: String! = buttonOne.titleLabel?.text
-        print("button one is",guess)
-        var song = mediaPlayer.nowPlayingItem?.title
-        print("song is", song)
-        if guess == song {
-            print("BINGO🌟")
-        } else {
-            print("nopes😵")
+        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] (timer) in
+            self?.mediaPlayer.skipToNextItem()
         }
     }
+    
+    @objc func updateInterface() {
+        guard let albumImageView = albumImageView else { return }
+        
+        if let artwork = mediaPlayer.nowPlayingItem?.artwork {
+            albumImageView.image = artwork.image(at: albumImageView.bounds.size)
+        } else {
+            // this is the case where there is no album artwork
+            // albumImageView.image = mediaPlayer.nowPlayingItem?.artwork?.image(at: albumImageView.bounds.size)
+        }
+        
+        guard let tableViewController = tableViewController else { return }
+        tableViewController.dataSource = tableViewController.initializeSongTitles()
+        tableViewController.tableView.reloadData()
+    }
+        
+    
+    // MARK: - Actions
+                
+//    @IBAction func btnOne(_ sender: Any) {
+//        var guess: String! = buttonOne.titleLabel?.text
+//        print("button one is",guess)
+//        var song = mediaPlayer.nowPlayingItem?.title
+//        print("song is", song)
+//        if guess == song {
+//            print("BINGO🌟")
+//        } else {
+//            print("nopes😵")
+//        }
+//    }
     
                 
     //            ***end button Fns***
@@ -183,8 +115,9 @@ class GamePlayViewController: UIViewController {
     // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let tableViewController = segue.destination as? UITableViewController {
+        if let tableViewController = segue.destination as? SongTableViewController {
             self.tableViewController = tableViewController
+            tableViewController.mediaPlayer = mediaPlayer
         }
     }
     

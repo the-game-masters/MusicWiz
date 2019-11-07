@@ -20,6 +20,7 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var albumImageView: UIImageView?
     @IBOutlet weak var progressBar: UIProgressView!
     
+    @IBOutlet weak var hintBtn: UIButton!
     
     
     // MARK: - Public Variables
@@ -58,13 +59,7 @@ class GamePlayViewController: UIViewController {
     
 //   *** Buttons for Play ***
     
-    @IBOutlet weak var buttonOne: UIButton!
-    
-    @IBOutlet weak var buttonTwo: UIButton!
-    
-    @IBOutlet weak var buttonThree: UIButton!
-    
-    @IBOutlet weak var buttonFour: UIButton!
+
     
 //   *** end buttons ***
     
@@ -94,6 +89,7 @@ class GamePlayViewController: UIViewController {
     
     func startSongShuffle() {
         mediaPlayer.play()
+        
         progress()
         
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] (timer) in
@@ -103,6 +99,7 @@ class GamePlayViewController: UIViewController {
     }
     
     @objc func updateInterface() {
+        hintBtn.setTitle("hint", for: .normal)
         guard let albumImageView = albumImageView else { return }
         
         if let artwork = mediaPlayer.nowPlayingItem?.artwork {
@@ -138,6 +135,8 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func hintButtonPressed(_ sender: Any) {
+        hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)
+        print(hintBtn.titleLabel)
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {

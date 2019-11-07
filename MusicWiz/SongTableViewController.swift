@@ -63,9 +63,11 @@ class SongTableViewController: UITableViewController {
         return 50
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
+//    this is the code that will helps us select the song.
+    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 
     /*
     // Override to support conditional editing of the table view.

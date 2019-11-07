@@ -27,7 +27,6 @@ class GamePlayViewController: UIViewController {
     
     let mediaPlayer = MPMusicPlayerApplicationController.applicationQueuePlayer
     
-    
     weak var tableViewController: SongTableViewController?
     
     var timer = Timer()
@@ -105,8 +104,7 @@ class GamePlayViewController: UIViewController {
         if let artwork = mediaPlayer.nowPlayingItem?.artwork {
             albumImageView.image = artwork.image(at: albumImageView.bounds.size)
         } else {
-            // this is the case where there is no album artwork
-            // albumImageView.image = mediaPlayer.nowPlayingItem?.artwork?.image(at: albumImageView.bounds.size)
+            albumImageView.image = UIImage(named: "defaultArtwork")
         }
         
         guard let tableViewController = tableViewController else { return }

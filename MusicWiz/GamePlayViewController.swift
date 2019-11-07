@@ -18,6 +18,10 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var timerView: UIView?
     
     @IBOutlet weak var albumImageView: UIImageView?
+    @IBOutlet weak var progressBar: UIProgressView!
+    
+    @IBOutlet weak var hintBtn: UIButton!
+    
     
     // MARK: - Public Variables
     
@@ -25,15 +29,36 @@ class GamePlayViewController: UIViewController {
     
     weak var tableViewController: SongTableViewController?
     
+    var timer = Timer()
+    
+        var totalTime = 0
+        var secondsPassed = 0
+    
+        func progress() {
+    
+            timer.invalidate()
+    
+            totalTime = 10
+            progressBar.progress = 0.0
+            secondsPassed = 0
+    
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(updateTimer), userInfo:nil, repeats: true)
+        }
+    
+        @objc func updateTimer() {
+            if secondsPassed < totalTime {
+                secondsPassed += 1
+                progressBar.progress = Float(secondsPassed) / Float(totalTime)
+                print(Float(secondsPassed) / Float(totalTime))
+            } else {
+                timer.invalidate()
+    
+            }
+        }
+    
 //   *** Buttons for Play ***
     
-    @IBOutlet weak var buttonOne: UIButton!
-    
-    @IBOutlet weak var buttonTwo: UIButton!
-    
-    @IBOutlet weak var buttonThree: UIButton!
-    
-    @IBOutlet weak var buttonFour: UIButton!
+
     
 //   *** end buttons ***
     
@@ -64,12 +89,16 @@ class GamePlayViewController: UIViewController {
     func startSongShuffle() {
         mediaPlayer.play()
         
+        progress()
+        
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] (timer) in
             self?.mediaPlayer.skipToNextItem()
+            self?.progress()
         }
     }
     
     @objc func updateInterface() {
+        hintBtn.setTitle("hint", for: .normal)
         guard let albumImageView = albumImageView else { return }
         
         if let artwork = mediaPlayer.nowPlayingItem?.artwork {
@@ -99,15 +128,17 @@ class GamePlayViewController: UIViewController {
 //    }
     
                 
-    //            ***end button Fns***
     
     @IBAction func unblurButtonPressed(_ sender: Any) {
     }
     
     @IBAction func hintButtonPressed(_ sender: Any) {
+        hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)
+        print(hintBtn.titleLabel)
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
+        
     }
     
     // MARK: - Segues
@@ -120,3 +151,28 @@ class GamePlayViewController: UIViewController {
     }
     
 }
+
+
+//-----------------------------
+
+
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//           let timeLimit = 30.0
+//        displayScore.text = String(500)
+//
+//
+//
+//             // Add a playback queue containing all songs on the device
+//             mediaPlayer.setQueue(with: .songs())
+////
+////             // Start playing from the beginning of the queue
+//             mediaPlayer.play()
+//            progress()
+//
+//         Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
+////            self.mediaPlayer.setQueue(with: .songs())
+//                    self.mediaPlayer.stop()
+//            self.mediaPlayer.play()
+//            self.progress()

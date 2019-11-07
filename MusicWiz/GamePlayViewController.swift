@@ -18,6 +18,9 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var timerView: UIView?
     
     @IBOutlet weak var albumImageView: UIImageView?
+    @IBOutlet weak var progressBar: UIProgressView!
+    
+    
     
     // MARK: - Public Variables
     
@@ -25,6 +28,33 @@ class GamePlayViewController: UIViewController {
     
     
     weak var tableViewController: SongTableViewController?
+    
+    var timer = Timer()
+    
+        var totalTime = 0
+        var secondsPassed = 0
+    
+        func progress() {
+    
+            timer.invalidate()
+    
+            totalTime = 10
+            progressBar.progress = 0.0
+            secondsPassed = 0
+    
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(updateTimer), userInfo:nil, repeats: true)
+        }
+    
+        @objc func updateTimer() {
+            if secondsPassed < totalTime {
+                secondsPassed += 1
+                progressBar.progress = Float(secondsPassed) / Float(totalTime)
+                print(Float(secondsPassed) / Float(totalTime))
+            } else {
+                timer.invalidate()
+    
+            }
+        }
     
 //   *** Buttons for Play ***
     
@@ -64,9 +94,11 @@ class GamePlayViewController: UIViewController {
     
     func startSongShuffle() {
         mediaPlayer.play()
+        progress()
         
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] (timer) in
             self?.mediaPlayer.skipToNextItem()
+            self?.progress()
         }
     }
     
@@ -101,7 +133,6 @@ class GamePlayViewController: UIViewController {
 //    }
     
                 
-    //            ***end button Fns***
     
     @IBAction func unblurButtonPressed(_ sender: Any) {
     }
@@ -110,6 +141,7 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
+        
     }
     
     // MARK: - Segues
@@ -122,3 +154,28 @@ class GamePlayViewController: UIViewController {
     }
     
 }
+
+
+//-----------------------------
+
+
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//           let timeLimit = 30.0
+//        displayScore.text = String(500)
+//
+//
+//
+//             // Add a playback queue containing all songs on the device
+//             mediaPlayer.setQueue(with: .songs())
+////
+////             // Start playing from the beginning of the queue
+//             mediaPlayer.play()
+//            progress()
+//
+//         Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
+////            self.mediaPlayer.setQueue(with: .songs())
+//                    self.mediaPlayer.stop()
+//            self.mediaPlayer.play()
+//            self.progress()

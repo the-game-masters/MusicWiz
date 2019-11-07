@@ -30,22 +30,23 @@ class GamePlayViewController: UIViewController {
     weak var tableViewController: SongTableViewController?
     
     var timer = Timer()
+    var timez = Timer()
+    var totalTime = 0
+    var secondsPassed = 0
     
-        var totalTime = 0
-        var secondsPassed = 0
-    
-        func progress() {
-    
-            timer.invalidate()
-    
-            totalTime = 10
-            progressBar.progress = 0.0
-            secondsPassed = 0
-    
-            timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(updateTimer), userInfo:nil, repeats: true)
-        }
+    func progress() {
+
+        timer.invalidate()
+        
+        totalTime = 10
+        progressBar.progress = 0.0
+        secondsPassed = 0
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(updateTimer), userInfo:nil, repeats: true)
+    }
     
         @objc func updateTimer() {
+            
+            
             if secondsPassed < totalTime {
                 secondsPassed += 1
                 progressBar.progress = Float(secondsPassed) / Float(totalTime)
@@ -87,20 +88,36 @@ class GamePlayViewController: UIViewController {
         mediaPlayer.prepareToPlay { [weak self] (error) in
             if error == nil {
                 self?.startSongShuffle()
+            }else{
+                self?.mediaPlayer.play()
             }
         }
         
     }
     
     func startSongShuffle() {
+        timez.invalidate()
+        mediaPlayer.stop()
         mediaPlayer.play()
+        mediaPlayer.skipToNextItem()
         progress()
-        
-        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] (timer) in
+        timez = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] (timer) in
             self?.mediaPlayer.skipToNextItem()
             self?.progress()
         }
     }
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @objc func updateInterface() {
         guard let albumImageView = albumImageView else { return }
@@ -119,21 +136,7 @@ class GamePlayViewController: UIViewController {
         
     
     // MARK: - Actions
-                
-//    @IBAction func btnOne(_ sender: Any) {
-//        var guess: String! = buttonOne.titleLabel?.text
-//        print("button one is",guess)
-//        var song = mediaPlayer.nowPlayingItem?.title
-//        print("song is", song)
-//        if guess == song {
-//            print("BINGO🌟")
-//        } else {
-//            print("nopes😵")
-//        }
-//    }
-    
-                
-    
+            
     @IBAction func unblurButtonPressed(_ sender: Any) {
     }
     
@@ -141,9 +144,14 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
+        
+        self.startSongShuffle()
+//        self.progress()
+//        self.mediaPlayer.skipToNextItem()
+//        timez.invalidate()
 
-        self.mediaPlayer.skipToNextItem()
-        self.progress()
+        
+        
     }
     
     // MARK: - Segues

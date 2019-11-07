@@ -141,7 +141,9 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
-        
+
+        self.mediaPlayer.skipToNextItem()
+        self.progress()
     }
     
     // MARK: - Segues

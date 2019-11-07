@@ -9,7 +9,14 @@
 import UIKit
 import MediaPlayer
 
+//Global Var option
+//struct GlobalVar {
+//    static var highScore = 0
+//}
+
+
 class GamePlayViewController: UIViewController {
+
     
     // MARK: - IBOutlet References
 //    ? is guard rails for accessing a value that may or may not be
@@ -26,23 +33,16 @@ class GamePlayViewController: UIViewController {
     
     weak var tableViewController: SongTableViewController?
     
-//   *** Buttons for Play ***
-    
-    @IBOutlet weak var buttonOne: UIButton!
-    
-    @IBOutlet weak var buttonTwo: UIButton!
-    
-    @IBOutlet weak var buttonThree: UIButton!
-    
-    @IBOutlet weak var buttonFour: UIButton!
-    
-//   *** end buttons ***
-    
     
     // MARK: - Override Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //User defaults settings
+        let defaults = UserDefaults.standard
+        let scoresArray = ["BRUH","FUCKIN BRUH"]
+        defaults.set(scoresArray, forKey:"UserScoreboard")
         
         // Register for the ready to play notification
         NotificationCenter.default.addObserver(self,
@@ -110,6 +110,10 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
+    }
+    
+    @IBAction func EndGame(_ sender: UIButton) {
+        performSegue(withIdentifier: "GoToScores", sender: self)
     }
     
     // MARK: - Segues

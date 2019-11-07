@@ -63,6 +63,14 @@
                                     <segue destination="wrY-K0-669" kind="embed" id="Opm-9f-Vxy"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdW-H6-uTL">
+                                <rect key="frame" x="336" y="136" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="End Game"/>
+                                <connections>
+                                    <action selector="EndGame:" destination="yfr-Or-FCA" eventType="touchUpInside" id="oqc-X2-iPr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -94,6 +102,7 @@
                         <outlet property="albumImageView" destination="rto-3k-bbj" id="Mzm-7V-mL7"/>
                         <outlet property="navigationBar" destination="R7x-X6-1MZ" id="3d9-VK-QXe"/>
                         <outlet property="timerView" destination="0vl-uJ-WZs" id="6uT-RO-qZT"/>
+                        <segue destination="xbt-J9-QRl" kind="presentation" identifier="GoToScores" id="HkU-Ri-DCq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qd-Ps-xtP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -117,6 +126,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HE-gV-gWg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="128.98550724637681" y="93.75"/>
+        </scene>
+        <!--Post Game-->
+        <scene sceneID="jkj-E9-ZeU">
+            <objects>
+                <viewController id="xbt-J9-QRl" customClass="PostGame" customModule="MusicWiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zwK-1K-Xo1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-qp-ljl">
+                                <rect key="frame" x="78" y="93" width="220" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="wRX-dx-Dmr"/>
+                    </view>
+                    <connections>
+                        <outlet property="ScoresLabel" destination="qLF-qp-ljl" id="7PF-Ga-6TO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k8h-7F-BA4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1792.753623188406" y="-447.32142857142856"/>
         </scene>
         <!--Song Table View Controller-->
         <scene sceneID="Jhz-Mm-J8l">

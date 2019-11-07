@@ -23,6 +23,7 @@ class GamePlayViewController: UIViewController {
     
     let mediaPlayer = MPMusicPlayerApplicationController.applicationQueuePlayer
     
+    
     weak var tableViewController: UITableViewController?
     
 //   *** Buttons for Play ***
@@ -88,7 +89,17 @@ class GamePlayViewController: UIViewController {
 //             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
 //
 //             self.present(alert, animated: true)
+        let timeLimit = 15.0
         
+        
+        // Add a playback queue containing all songs on the device
+        mediaPlayer.setQueue(with: .songs())
+//        print(mediaPlayer.songs())
+        
+        // Start playing from the beginning of the queue
+        mediaPlayer.prepareToPlay()
+        mediaPlayer.shuffleMode = .songs
+        mediaPlayer.play()
 
              print("Title: //\(String(describing: self.mediaPlayer.nowPlayingItem?.title))")
             
@@ -112,10 +123,33 @@ class GamePlayViewController: UIViewController {
 
          }
         
+
+      
+        
+    Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
+            //   self.mediaPlayer.stop()
+        
+
+        self.albumImageView!.image = self.mediaPlayer.nowPlayingItem?.artwork?.image(at: self.albumImageView!.bounds.size)
+        
+//        let alert = UIAlertController(title: "Song", message: " \(String(describing: self.mediaPlayer.nowPlayingItem?.title))", preferredStyle: .alert)
+//
+//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//
+//        self.present(alert, animated: true)
+        
+        print("Title: //\(String(describing: self.mediaPlayer.nowPlayingItem?.title))")
+        
+        self.mediaPlayer.skipToNextItem()
+        
+    }
+        
+        
+        
         // Print the now-playing item, need to write recursive func that calls until loaded
+
 //        print("🤢Title: \(mediaPlayer.nowPlayingItem?.artwork), Artist: \(mediaPlayer.nowPlayingItem?.artist)")
         
-     
     }
     
     // MARK: - Actions

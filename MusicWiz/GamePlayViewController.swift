@@ -18,6 +18,11 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var timerView: UIView?
     
     @IBOutlet weak var albumImageView: UIImageView?
+    
+//blur stuff 🐷
+    let visualEffectView = UIVisualEffectView(effect:UIBlurEffect(style: UIBlurEffect.Style.extraLight))
+//    play with the last value in style for more blur options
+    
     @IBOutlet weak var progressBar: UIProgressView!
     
     @IBOutlet weak var hintBtn: UIButton!
@@ -101,7 +106,6 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-    
 
     
     
@@ -110,15 +114,24 @@ class GamePlayViewController: UIViewController {
     
     
     
-    
-    
-    
     @objc func updateInterface() {
+        
         hintBtn.setTitle("hint", for: .normal)
+        
         guard let albumImageView = albumImageView else { return }
         
         if let artwork = mediaPlayer.nowPlayingItem?.artwork {
             albumImageView.image = artwork.image(at: albumImageView.bounds.size)
+            
+            
+//         ******   blurrr 🐷*****
+            visualEffectView.alpha = 0.8
+//            ☝️play with alpha values for blurriness
+            view.addSubview(visualEffectView)
+            visualEffectView.frame = albumImageView.frame
+//        *******    end blurrrr *****
+            
+            
         } else {
             albumImageView.image = UIImage(named: "defaultArtwork")
         }
@@ -131,12 +144,15 @@ class GamePlayViewController: UIViewController {
     
     // MARK: - Actions
             
-    @IBAction func unblurButtonPressed(_ sender: Any) {
+    @IBAction func unblurButtonPress(_ sender: Any) {
+//        print("you pressed blur")🐷
+        visualEffectView.removeFromSuperview()
     }
+    
     
     @IBAction func hintButtonPressed(_ sender: Any) {
         hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)
-        print(hintBtn.titleLabel)
+//        print(hintBtn.titleLabel)
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {

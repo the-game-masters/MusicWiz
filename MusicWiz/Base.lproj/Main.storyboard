@@ -49,7 +49,7 @@
                                 </constraints>
                                 <state key="normal" title="Unblur"/>
                                 <connections>
-                                    <action selector="unblurButtonPresseds:" destination="yfr-Or-FCA" eventType="touchUpInside" id="kE6-Jn-xFt"/>
+                                    <action selector="unblurButtonPress:" destination="yfr-Or-FCA" eventType="touchUpInside" id="LyZ-n9-6hC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ros-Nt-2Xy">

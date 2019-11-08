@@ -51,6 +51,7 @@ class GamePlayViewController: UIViewController {
         totalTime = 10
         progressBar.progress = 0.0
         secondsPassed = 0
+        defaults.set(500, forKey: "currentScore")
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(updateTimer), userInfo:nil, repeats: true)
     }
     
@@ -65,6 +66,8 @@ class GamePlayViewController: UIViewController {
                 scoreBoard.text = String(defaults.integer(forKey: "currentScore"))
                 print(Float(secondsPassed) / Float(totalTime))
             } else {
+                let timeUp = defaults.integer(forKey: "totalScore") - 80
+                defaults.set(timeUp, forKey: "totalScore")
                 timer.invalidate()
     
             }
@@ -78,6 +81,22 @@ class GamePlayViewController: UIViewController {
     
     
     // MARK: - Override Methods
+    
+    
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // If correct, highlight green then move to the next song
+        if let songTitle = tableView.dataSource[indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath)
+        if songTitle == mediaPlayer?.nowPlayingItem?.title {
+            // user got it right
+            var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
+            defaults.set(updateScore, forKey: "totalScore")
+            totalScore.text = String(updateScore)
+            cell?.backgroundColor = .green
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,12 +167,19 @@ class GamePlayViewController: UIViewController {
     // MARK: - Actions
 
     @IBAction func unblurButtonPress(_ sender: Any) {
+        var newCurrent = defaults.integer(forKey: "totalScore") - 50
+        defaults.set(newCurrent, forKey: "totalScore")
+        totalScore.text = String(newCurrent)
 //        print("you pressed blur")🐷
         visualEffectView.removeFromSuperview()
+    }
     
     @IBAction func hintButtonPressed(_ sender: Any) {
         hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)
-//        print(hintBtn.titleLabel)
+        var newCurrent = defaults.integer(forKey: "totalScore") - 50
+        defaults.set(newCurrent, forKey: "totalScore")
+        totalScore.text = String(newCurrent)
+        
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
@@ -162,11 +188,6 @@ class GamePlayViewController: UIViewController {
         totalScore.text = String(newCurrent)
         self.startSongShuffle()
         defaults.set(500, forKey: "currentScore")
-//        self.progress()
-//        self.mediaPlayer.skipToNextItem()
-//        timez.invalidate()
-
-        
         
     }
     
@@ -181,27 +202,3 @@ class GamePlayViewController: UIViewController {
     
 }
 
-
-//-----------------------------
-
-
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//           let timeLimit = 30.0
-//        displayScore.text = String(500)
-//
-//
-//
-//             // Add a playback queue containing all songs on the device
-//             mediaPlayer.setQueue(with: .songs())
-////
-////             // Start playing from the beginning of the queue
-//             mediaPlayer.play()
-//            progress()
-//
-//         Timer.scheduledTimer(withTimeInterval: timeLimit, repeats: true) { (timer) in
-////            self.mediaPlayer.setQueue(with: .songs())
-//                    self.mediaPlayer.stop()
-//            self.mediaPlayer.play()
-//            self.progress()

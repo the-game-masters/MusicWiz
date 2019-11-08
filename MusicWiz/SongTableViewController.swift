@@ -71,14 +71,41 @@ class SongTableViewController: UITableViewController {
     // If correct, highlight green then move to the next song
     let songTitle = dataSource[indexPath.row]
     let cell = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = .none
     if songTitle == mediaPlayer?.nowPlayingItem?.title {
         // user got it right
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                cell?.backgroundColor = .green
+                    }, completion: {
+                        (finished: Bool) -> Void in
+             // Fade in
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    cell?.backgroundColor = .clear
+                     }, completion: nil)
+        })
         var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
         defaults.set(updateScore, forKey: "totalScore")
         tableView.reloadRows(at: [indexPath], with: .none)
-        
+        mediaPlayer?.skipToNextItem()
     }
+                else {
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    cell?.backgroundColor = .red
+                        }, completion: {
+                            (finished: Bool) -> Void in
+           
+               // Fade in
+                        UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                            cell?.backgroundColor = .clear
+                             }, completion: nil)
+                })
+                mediaPlayer?.skipToNextItem()
+        
+            }
 }
+    
+
+        
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

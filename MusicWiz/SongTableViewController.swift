@@ -12,6 +12,7 @@ import MediaPlayer
 
 class SongTableViewController: UITableViewController {
     
+    var defaults = UserDefaults.standard
     var mediaPlayer: MPMusicPlayerApplicationController?
     
     var dataSource = [String]()
@@ -66,18 +67,45 @@ class SongTableViewController: UITableViewController {
     
 //    this is the code that will helps us select the song.
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // If correct, highlight green then move to the next song
+    let songTitle = dataSource[indexPath.row]
+    let cell = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = .none
+    if songTitle == mediaPlayer?.nowPlayingItem?.title {
+        // user got it right
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                cell?.backgroundColor = .green
+                    }, completion: {
+                        (finished: Bool) -> Void in
+             // Fade in
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                    cell?.backgroundColor = .clear
+                     }, completion: nil)
+        })
+        var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
+        defaults.set(updateScore, forKey: "totalScore")
+        tableView.reloadRows(at: [indexPath], with: .none)
+        mediaPlayer?.skipToNextItem()
     }
-    */
+                else {
+                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+                    cell?.backgroundColor = .red
+                        }, completion: {
+                            (finished: Bool) -> Void in
+           
+               // Fade in
+                        UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                            cell?.backgroundColor = .clear
+                             }, completion: nil)
+                })
+                mediaPlayer?.skipToNextItem()
+        
+            }
+}
+    
 
+        
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

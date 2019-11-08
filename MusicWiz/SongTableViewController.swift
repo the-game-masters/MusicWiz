@@ -72,6 +72,10 @@ class SongTableViewController: UITableViewController {
     let songTitle = dataSource[indexPath.row]
     let cell = tableView.cellForRow(at: indexPath)
         cell?.selectionStyle = .none
+        
+    
+//        mediaPlayer?.skipToNextItem()
+        
     if songTitle == mediaPlayer?.nowPlayingItem?.title {
         // user got it right
             UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
@@ -82,13 +86,8 @@ class SongTableViewController: UITableViewController {
                 UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                     cell?.backgroundColor = .clear
                      }, completion: nil)
-        })
-        var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
-        defaults.set(updateScore, forKey: "totalScore")
-        tableView.reloadRows(at: [indexPath], with: .none)
-        mediaPlayer?.skipToNextItem()
-    }
-                else {
+                        self.mediaPlayer?.skipToNextItem()
+            }) }else {
                 UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                     cell?.backgroundColor = .red
                         }, completion: {
@@ -98,11 +97,22 @@ class SongTableViewController: UITableViewController {
                         UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                             cell?.backgroundColor = .clear
                              }, completion: nil)
+                            self.mediaPlayer?.skipToNextItem()
+
                 })
-                mediaPlayer?.skipToNextItem()
-        
+        var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
+            defaults.set(updateScore, forKey: "totalScore")
+            tableView.reloadRows(at: [indexPath], with: .none)
+//        self.mediaPlayer?.skipToNextItem()
+
+
+        }
             }
-}
+    
+    
+        
+        }
+    
     
 
         
@@ -143,4 +153,4 @@ class SongTableViewController: UITableViewController {
     }
     */
 
-}
+

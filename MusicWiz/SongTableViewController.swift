@@ -64,11 +64,19 @@ class SongTableViewController: UITableViewController {
         return 50
     }
     
-//    this is the code that will helps us select the song.
-    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // If correct, highlight green then move to the next song
+        let songTitle = dataSource[indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath)
+        if songTitle == mediaPlayer?.nowPlayingItem?.title {
+            // user got it right
+            cell?.backgroundColor = .green
+            mediaPlayer?.skipToNextItem()
+        } else {
+            cell?.backgroundColor = .red
+            mediaPlayer?.skipToNextItem()
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

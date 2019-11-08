@@ -48,7 +48,7 @@ class GamePlayViewController: UIViewController {
 
         timer.invalidate()
         
-        totalTime = 10
+        totalTime = 15
         progressBar.progress = 0.0
         secondsPassed = 0
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(updateTimer), userInfo:nil, repeats: true)
@@ -110,7 +110,7 @@ class GamePlayViewController: UIViewController {
         mediaPlayer.play()
         mediaPlayer.skipToNextItem()
         progress()
-        timez = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] (timer) in
+        timez = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { [weak self] (timer) in
             self?.mediaPlayer.skipToNextItem()
             self?.progress()
         }
@@ -128,7 +128,7 @@ class GamePlayViewController: UIViewController {
             
             
 //         ******   blurrr 🐷*****
-            visualEffectView.alpha = 0.8
+            visualEffectView.alpha = 0.9
 //            ☝️play with alpha values for blurriness
             view.addSubview(visualEffectView)
             visualEffectView.frame = albumImageView.frame
@@ -150,6 +150,7 @@ class GamePlayViewController: UIViewController {
     @IBAction func unblurButtonPress(_ sender: Any) {
 //        print("you pressed blur")🐷
         visualEffectView.removeFromSuperview()
+    }
     
     @IBAction func hintButtonPressed(_ sender: Any) {
         hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)

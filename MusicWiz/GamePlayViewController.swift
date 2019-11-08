@@ -73,29 +73,10 @@ class GamePlayViewController: UIViewController {
             }
         }
     
-//   *** Buttons for Play ***
-    
-
-    
-//   *** end buttons ***
     
     
     // MARK: - Override Methods
     
-    
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // If correct, highlight green then move to the next song
-        if let songTitle = tableView.dataSource[indexPath.row]
-        let cell = tableView.cellForRow(at: indexPath)
-        if songTitle == mediaPlayer?.nowPlayingItem?.title {
-            // user got it right
-            var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
-            defaults.set(updateScore, forKey: "totalScore")
-            totalScore.text = String(updateScore)
-            cell?.backgroundColor = .green
-            tableView.reloadRows(at: [indexPath], with: .none)
-        }
-    }
     
     
     override func viewDidLoad() {
@@ -162,12 +143,34 @@ class GamePlayViewController: UIViewController {
         tableViewController.dataSource = tableViewController.initializeSongTitles()
         tableViewController.tableView.reloadData()
     }
+    
+    // THIS NEEDS TO WORK, I think the user input isnt being recognized because nothing happens when clicking of the table cells. 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // If correct, highlight green then move to the next song
+        let indexPath = tableView.indexPathForSelectedRow
+        let cell = tableView.cellForRow(at: indexPath!)! as UITableViewCell
+        let currentItem = cell.textLabel!.text
+        if currentItem == mediaPlayer.nowPlayingItem?.title {
+            // user got it right
+            
+            let updateScore = (defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore"))
+            defaults.set(updateScore, forKey: "totalScore")
+            totalScore.text = String(updateScore)
+            cell.backgroundColor = .green
+            tableView.reloadRows(at: [indexPath!], with: .none)
+        }
+        else{
+            let updateScore = (defaults.integer(forKey: "totalScore") - 50)
+            defaults.set(updateScore, forKey: "totalScore")
+            totalScore.text = String(updateScore)}
+        
+    }
         
     
     // MARK: - Actions
 
     @IBAction func unblurButtonPress(_ sender: Any) {
-        var newCurrent = defaults.integer(forKey: "totalScore") - 50
+        let newCurrent = defaults.integer(forKey: "totalScore") - 50
         defaults.set(newCurrent, forKey: "totalScore")
         totalScore.text = String(newCurrent)
 //        print("you pressed blur")🐷
@@ -176,14 +179,14 @@ class GamePlayViewController: UIViewController {
     
     @IBAction func hintButtonPressed(_ sender: Any) {
         hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)
-        var newCurrent = defaults.integer(forKey: "totalScore") - 50
+        let newCurrent = defaults.integer(forKey: "totalScore") - 50
         defaults.set(newCurrent, forKey: "totalScore")
         totalScore.text = String(newCurrent)
         
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
-        var newCurrent = defaults.integer(forKey: "totalScore") - 100
+        let newCurrent = defaults.integer(forKey: "totalScore") - 100
         defaults.set(newCurrent, forKey: "totalScore")
         totalScore.text = String(newCurrent)
         self.startSongShuffle()

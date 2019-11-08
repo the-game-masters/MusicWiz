@@ -52,6 +52,9 @@ class GamePlayViewController: UIViewController {
         progressBar.progress = 0.0
         secondsPassed = 0
         defaults.set(500, forKey: "currentScore")
+        var updateScore = defaults.integer(forKey: "totalScore")
+        defaults.set(updateScore, forKey: "totalScore")
+        totalScore.text = String(updateScore)
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(updateTimer), userInfo:nil, repeats: true)
     }
     

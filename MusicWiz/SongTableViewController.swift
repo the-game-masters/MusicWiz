@@ -12,6 +12,7 @@ import MediaPlayer
 
 class SongTableViewController: UITableViewController {
     
+    var defaults = UserDefaults.standard
     var mediaPlayer: MPMusicPlayerApplicationController?
     
     var dataSource = [String]()
@@ -66,18 +67,18 @@ class SongTableViewController: UITableViewController {
     
 //    this is the code that will helps us select the song.
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // If correct, highlight green then move to the next song
+    let songTitle = dataSource[indexPath.row]
+    let cell = tableView.cellForRow(at: indexPath)
+    if songTitle == mediaPlayer?.nowPlayingItem?.title {
+        // user got it right
+        var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
+        defaults.set(updateScore, forKey: "totalScore")
+        tableView.reloadRows(at: [indexPath], with: .none)
+        
     }
-    */
-
+}
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

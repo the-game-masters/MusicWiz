@@ -11,11 +11,16 @@ import MediaPlayer
 
 class GamePlayViewController: UIViewController {
     
+    
+    let defaults = UserDefaults.standard
+    
     // MARK: - IBOutlet References
 //    ? is guard rails for accessing a value that may or may not be
     @IBOutlet weak var navigationBar: UINavigationItem?
     
+    @IBOutlet weak var scoreBoard: UILabel!
     @IBOutlet weak var timerView: UIView?
+    @IBOutlet weak var totalScore: UILabel!
     
     @IBOutlet weak var albumImageView: UIImageView?
     @IBOutlet weak var progressBar: UIProgressView!
@@ -50,6 +55,9 @@ class GamePlayViewController: UIViewController {
             if secondsPassed < totalTime {
                 secondsPassed += 1
                 progressBar.progress = Float(secondsPassed) / Float(totalTime)
+                var updatedScore = defaults.integer(forKey: "currentScore") - 10
+                defaults.set(updatedScore, forKey: "currentScore")
+                scoreBoard.text = String(defaults.integer(forKey: "currentScore"))
                 print(Float(secondsPassed) / Float(totalTime))
             } else {
                 timer.invalidate()
@@ -68,7 +76,9 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        defaults.set(500, forKey: "currentScore")
+        defaults.set(500, forKey: "totalScore")
+        totalScore.text = String(defaults.integer(forKey: "totalScore"))
         // Register for the ready to play notification
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateInterface),
@@ -102,11 +112,6 @@ class GamePlayViewController: UIViewController {
     }
     
     
-
-    
-    
-    
-    
     
     
     
@@ -130,7 +135,9 @@ class GamePlayViewController: UIViewController {
         
     
     // MARK: - Actions
-            
+    
+    
+    //464944 - Totally Not Aileens password
     @IBAction func unblurButtonPressed(_ sender: Any) {
     }
     
@@ -140,8 +147,11 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
-        
+        var newCurrent = defaults.integer(forKey: "totalScore") - 100
+        defaults.set(newCurrent, forKey: "totalScore")
+        totalScore.text = String(newCurrent)
         self.startSongShuffle()
+        defaults.set(500, forKey: "currentScore")
 //        self.progress()
 //        self.mediaPlayer.skipToNextItem()
 //        timez.invalidate()

@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Score-->
+        <!--Game Play View Controller-->
         <scene sceneID="dmC-Nh-izM">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="yfr-Or-FCA" customClass="GamePlayViewController" customModule="MusicWiz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yfr-Or-FCA" customClass="GamePlayViewController" customModule="MusicWiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VJd-Ri-Ut5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -76,6 +76,34 @@
                                     <segue destination="wrY-K0-669" kind="embed" id="Opm-9f-Vxy"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pCp-Z2-X8O">
+                                <rect key="frame" x="340" y="132" width="74" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDP-ii-afa">
+                                <rect key="frame" x="1" y="132" width="48" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Potential Points:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqY-it-9ys">
+                                <rect key="frame" x="208" y="134" width="124" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Stx-Wo-SHc">
+                                <rect key="frame" x="49" y="129" width="70" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -100,7 +128,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sNA-EY-EdY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Score" id="R7x-X6-1MZ">
+                    <navigationItem key="navigationItem" id="R7x-X6-1MZ">
                         <barButtonItem key="backBarButtonItem" title="Menu" id="f94-qD-W95"/>
                     </navigationItem>
                     <connections>
@@ -108,7 +136,9 @@
                         <outlet property="hintBtn" destination="Ros-Nt-2Xy" id="xZV-ml-1xm"/>
                         <outlet property="navigationBar" destination="R7x-X6-1MZ" id="3d9-VK-QXe"/>
                         <outlet property="progressBar" destination="Chx-4h-jDd" id="eBz-EY-kOE"/>
+                        <outlet property="scoreBoard" destination="pCp-Z2-X8O" id="jf4-LL-K2d"/>
                         <outlet property="timerView" destination="0vl-uJ-WZs" id="6uT-RO-qZT"/>
+                        <outlet property="totalScore" destination="Stx-Wo-SHc" id="dcT-TO-IM7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qd-Ps-xtP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

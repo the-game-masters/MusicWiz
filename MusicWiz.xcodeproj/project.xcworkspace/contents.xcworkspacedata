@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../swft-single-sb/swft-single-sb/ViewController.swift">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

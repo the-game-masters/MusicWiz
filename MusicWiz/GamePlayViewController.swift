@@ -61,7 +61,7 @@ class GamePlayViewController: UIViewController {
             if secondsPassed < totalTime {
                 secondsPassed += 1
                 progressBar.progress = Float(secondsPassed) / Float(totalTime)
-                var updatedScore = defaults.integer(forKey: "currentScore") - 10
+                let updatedScore = defaults.integer(forKey: "currentScore") - 10
                 defaults.set(updatedScore, forKey: "currentScore")
                 scoreBoard.text = String(defaults.integer(forKey: "currentScore"))
                 print(Float(secondsPassed) / Float(totalTime))
@@ -83,19 +83,19 @@ class GamePlayViewController: UIViewController {
     // MARK: - Override Methods
     
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // If correct, highlight green then move to the next song
-        if let songTitle = tableView.dataSource[indexPath.row]
-        let cell = tableView.cellForRow(at: indexPath)
-        if songTitle == mediaPlayer?.nowPlayingItem?.title {
-            // user got it right
-            var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
-            defaults.set(updateScore, forKey: "totalScore")
-            totalScore.text = String(updateScore)
-            cell?.backgroundColor = .green
-            tableView.reloadRows(at: [indexPath], with: .none)
-        }
-    }
+//     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        // If correct, highlight green then move to the next song
+//        if let songTitle = tableView.dataSource[indexPath.row]
+//        let cell = tableView.cellForRow(at: indexPath)
+//        if songTitle == mediaPlayer?.nowPlayingItem?.title {
+//            // user got it right
+//            var updateScore = defaults.integer(forKey: "totalScore") + defaults.integer(forKey: "currentScore")
+//            defaults.set(updateScore, forKey: "totalScore")
+//            totalScore.text = String(updateScore)
+//            cell?.backgroundColor = .green
+//            tableView.reloadRows(at: [indexPath], with: .none)
+//        }
+//    }
     
     
     override func viewDidLoad() {
@@ -167,7 +167,7 @@ class GamePlayViewController: UIViewController {
     // MARK: - Actions
 
     @IBAction func unblurButtonPress(_ sender: Any) {
-        var newCurrent = defaults.integer(forKey: "totalScore") - 50
+        let newCurrent = defaults.integer(forKey: "totalScore") - 50
         defaults.set(newCurrent, forKey: "totalScore")
         totalScore.text = String(newCurrent)
 //        print("you pressed blur")🐷
@@ -176,14 +176,14 @@ class GamePlayViewController: UIViewController {
     
     @IBAction func hintButtonPressed(_ sender: Any) {
         hintBtn.setTitle(mediaPlayer.nowPlayingItem?.artist, for: .normal)
-        var newCurrent = defaults.integer(forKey: "totalScore") - 50
+        let newCurrent = defaults.integer(forKey: "totalScore") - 50
         defaults.set(newCurrent, forKey: "totalScore")
         totalScore.text = String(newCurrent)
         
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
-        var newCurrent = defaults.integer(forKey: "totalScore") - 100
+        let newCurrent = defaults.integer(forKey: "totalScore") - 100
         defaults.set(newCurrent, forKey: "totalScore")
         totalScore.text = String(newCurrent)
         self.startSongShuffle()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF4A85692373B4FC00AB0497 /* SongTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4A85682373B4FC00AB0497 /* SongTableViewController.swift */; };
 		AFB35F99236F9245007B7844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB35F98236F9245007B7844 /* AppDelegate.swift */; };
 		AFB35F9B236F9245007B7844 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB35F9A236F9245007B7844 /* SceneDelegate.swift */; };
 		AFB35F9D236F9245007B7844 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB35F9C236F9245007B7844 /* GamePlayViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF4A85682373B4FC00AB0497 /* SongTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewController.swift; sourceTree = "<group>"; };
 		AFB35F95236F9245007B7844 /* MusicWiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicWiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFB35F98236F9245007B7844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFB35F9A236F9245007B7844 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				AFB35FA1236F924B007B7844 /* Assets.xcassets */,
 				AFB35FA3236F924B007B7844 /* LaunchScreen.storyboard */,
 				AFB35FA6236F924B007B7844 /* Info.plist */,
+				AF4A85682373B4FC00AB0497 /* SongTableViewController.swift */,
 			);
 			path = MusicWiz;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			files = (
 				AFB35F9D236F9245007B7844 /* GamePlayViewController.swift in Sources */,
 				AFB35F99236F9245007B7844 /* AppDelegate.swift in Sources */,
+				AF4A85692373B4FC00AB0497 /* SongTableViewController.swift in Sources */,
 				AFB35F9B236F9245007B7844 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,13 +289,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S2TWVRST3V;
+				DEVELOPMENT_TEAM = 2U47YZ2UY3;
 				INFOPLIST_FILE = MusicWiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codefellows.musicwiz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codefellows.musicwizffs78876;
 				PRODUCT_NAME = MusicWiz;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -303,13 +307,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S2TWVRST3V;
+				DEVELOPMENT_TEAM = 2U47YZ2UY3;
 				INFOPLIST_FILE = MusicWiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codefellows.musicwiz;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codefellows.musicwizffs78876;
 				PRODUCT_NAME = MusicWiz;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
